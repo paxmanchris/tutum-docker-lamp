@@ -44,5 +44,5 @@ ENV PHP_POST_MAX_SIZE 10M
 # use local file on host machine for www
 VOLUME [ "/var/www/html", "/pclocal" ]
 
-EXPOSE 80 3306
+EXPOSE 80 8080 3306
 CMD ["/run.sh"]
