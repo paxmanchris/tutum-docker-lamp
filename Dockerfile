@@ -1,10 +1,10 @@
 FROM ubuntu:trusty
-MAINTAINER Fernando Mayo <fernando@tutum.co>, Feng Honglin <hfeng@tutum.co>
+MAINTAINER Christopher Pax <christopher.pax@gmail.com>
 
 # Install packages
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
-  apt-get -y install vim supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt && \
+  apt-get -y install vim supervisor git apache2 libapache2-mod-php5 mysql-server php5-mysql pwgen php-apc php5-mcrypt php5-curl php5-gd && \
   echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Add image configuration and scripts
@@ -24,7 +24,8 @@ ADD create_mysql_admin_user.sh /create_mysql_admin_user.sh
 RUN chmod 755 /*.sh
 
 # config to enable .htaccess
-ADD apache_default /etc/apache2/sites-available/000-default.conf
+ADD site.conf /etc/apache2/sites-enabled/
+#ADD apache_default /etc/apache2/sites-available/000-default.conf
 RUN a2enmod rewrite
 
 # Configure /app folder with sample app
@@ -44,5 +45,10 @@ ENV PHP_POST_MAX_SIZE 10M
 # use local file on host machine for www
 VOLUME [ "/var/www/html", "/pclocal" ]
 
-EXPOSE 80 8080 3306
+## expose web ports, and mailcatcher ports
+EXPOSE 80 8080 3306 1080
+
+## dns
+DNS 8.8.8.8
+
 CMD ["/run.sh"]
