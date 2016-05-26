@@ -34,6 +34,10 @@ RUN a2enmod rewrite
 
 RUN mkdir -p /pclocal
 
+# set www-data user to 1000, so it give server permission when sharing a file directly to root
+# this is intened as a fix for running docker through kitematic on a MAC
+RUN usermod -u 1000 www-data
+
 #Enviornment variables to configure php
 ENV PHP_UPLOAD_MAX_FILESIZE 10M
 ENV PHP_POST_MAX_SIZE 10M
