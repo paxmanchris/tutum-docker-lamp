@@ -49,10 +49,8 @@ ENV PHP_POST_MAX_SIZE 10M
 # use local file on host machine for www
 VOLUME [ "/var/www/html", "/pclocal" ]
 
-## expose web ports, and mailcatcher ports
-EXPOSE 80 8080 3306 1080
+## expose web ports
+EXPOSE 80 8080 443 
 
-## dns
-DNS 8.8.8.8
 
 CMD ["/run.sh"]
