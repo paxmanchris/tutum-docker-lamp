@@ -3,6 +3,16 @@ tutum-docker-lamp
 
 Out-of-the-box LAMP image (PHP+MySQL)
 
+modifcations by me
+---------------------------
+
+* added vim and git inside the container
+* included extra php librarys
+* fix permission of www-data for mac users
+* made mysql run local on the container
+
+
+
 
 Usage
 -----
